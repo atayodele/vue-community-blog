@@ -10,9 +10,12 @@
             
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item" v-if="!authUser">
-                        <router-link class="nav-link" to="/login">Login</router-link>
+                    <li class="nav-item" v-if="authUser">
+                        <router-link class="nav-link" to="/articles/create">Create New Article</router-link>
                     </li>
+                    <li class="nav-item" v-if="!authUser">
+                            <router-link class="nav-link" to="/login">Login</router-link>
+                        </li>
                     <li class="nav-item" v-if="!authUser">
                         <router-link class="nav-link" to="/signup">Sign Up</router-link>
                     </li>
@@ -21,7 +24,7 @@
                             Hey {{ authUser.name }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Logout</a>
+                            <a class="dropdown-item" @click="logout()" href="#">Logout</a>
                         </div>
                     </li>
                 </ul>
@@ -38,6 +41,14 @@
         computed: {
             authUser(){
                 return this.$root.auth.user;
+            }
+        },
+        methods: {
+            logout() {
+                localStorage.removeItem("auth");
+                this.$root.auth = {};
+                this.$noty.info("You've successfully logged out!");
+                this.$router.push('login');
             }
         }
     }
