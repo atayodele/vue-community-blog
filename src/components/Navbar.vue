@@ -48,7 +48,7 @@
                 localStorage.removeItem("auth");
                 this.$root.auth = {};
                 this.$noty.info("You've successfully logged out!");
-                this.$router.push('login');
+                this.$router.push('/login');
             }
         }
     }
